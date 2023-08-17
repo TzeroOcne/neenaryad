@@ -1,0 +1,20 @@
+{
+  "name": "Neenaryad",
+  "short_name": "neennaryad",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#b54eff",
+  "background_color": "#1d1d1d",
+  "icons": [
+    {
+      "sizes": "192x192",
+      "src": "stripe-white-lined-boxed-192.png",
+      "type": "image/png"
+    },
+    {
+      "sizes": "512x512",
+      "src": "stripe-white-lined-boxed-512.png",
+      "type": "image/png"
+    }
+  ]
+}

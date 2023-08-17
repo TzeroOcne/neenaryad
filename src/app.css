@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  :root {
+    @apply bg-nnrygray-600;
+  }
+  
+  #entry-table-root td {
+    word-break: break-words;
+    @apply p-2 whitespace-break-spaces;
+  }
+  
+  [role=dialog] > div {
+    @apply max-h-[75%];
+  }
+  
+  [role=dialog] [role=document]::-webkit-scrollbar {
+    @apply w-1;
+  }
+
+  [role=dialog] [role=document]::-webkit-scrollbar-thumb {
+    @apply bg-nnrygray-200;
+  }
+}

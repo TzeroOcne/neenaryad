@@ -1,0 +1,23 @@
+button#header-button:focus {
+  @apply shadow-none ring-0;
+}
+
+#header-icon > * {
+  @apply transition-all;
+}
+
+#header-button #header-icon #header-icon-menu {
+  @apply opacity-0;
+}
+
+#header-button #header-icon #header-icon-brand {
+  @apply opacity-100;
+}
+
+#header-button:hover #header-icon #header-icon-menu {
+  @apply opacity-100;
+}
+
+#header-button:hover #header-icon #header-icon-brand {
+  @apply opacity-0;
+}

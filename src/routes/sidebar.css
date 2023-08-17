@@ -1,0 +1,17 @@
+#sidebar-root {
+  transition: margin-left ease 0.5s;
+  @apply -ml-[256px];
+}
+
+#sidebar-root.show {
+  @apply ml-0;
+}
+
+#sidebar-group a {
+  text-decoration: none;
+  @apply hover:bg-nnrygray-800;
+}
+
+#sidebar-group a span {
+  @apply text-nnry-900;
+}
