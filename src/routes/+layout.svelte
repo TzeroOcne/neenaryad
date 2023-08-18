@@ -1,12 +1,19 @@
 <script>
   import { browser } from '$app/environment';
   import { initializeDB } from '$lib/database';
+  import { pwaInfo } from 'virtual:pwa-info';
   import '../app.css';
   import Header from './Header.svelte';
   import Sidebar from './Sidebar.svelte';
   import './styles.css';
   $: if (browser) initializeDB();
+  $: webManifest = pwaInfo ? pwaInfo.webManifest.linkTag : '';
 </script>
+
+<svelte:head>
+  <!-- eslint-disable svelte/no-at-html-tags -->
+  {@html webManifest}
+</svelte:head>
 
 <div class="app w-full h-full">
   <Sidebar />
