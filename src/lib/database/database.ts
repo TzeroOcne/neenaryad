@@ -70,8 +70,8 @@ export const dbFind = <T extends CollectionName>(collection:T, keyPath?:IDBValid
       const cursor:IDBCursorWithValue = (ev.target as IDBRequest).result;
       if (cursor) {
         result.push({
-          key: cursor.key,
           ...cursor.value,
+          key: cursor.key,
         });
         cursor.continue();
       } else {
