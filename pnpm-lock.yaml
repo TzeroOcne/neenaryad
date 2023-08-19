@@ -73,6 +73,9 @@ devDependencies:
   flowbite-svelte-icons:
     specifier: ^0.3.6
     version: 0.3.6(svelte@4.2.0)(tailwind-merge@1.14.0)(tailwindcss@3.3.3)
+  kolorist:
+    specifier: ^1.8.0
+    version: 1.8.0
   postcss:
     specifier: ^8.4.27
     version: 8.4.27
@@ -106,6 +109,9 @@ devDependencies:
   vitest:
     specifier: ^0.32.2
     version: 0.32.4
+  workbox-precaching:
+    specifier: ^7.0.0
+    version: 7.0.0
 
 packages:
 
@@ -3502,6 +3508,10 @@ packages:
 
   /known-css-properties@0.28.0:
     resolution: {integrity: sha512-9pSL5XB4J+ifHP0e0jmmC98OGC1nL8/JjS+fi6mnTlIf//yt/MfVLtKg7S6nCtj/8KTcWX7nRlY0XywoYY1ISQ==}
+    dev: true
+
+  /kolorist@1.8.0:
+    resolution: {integrity: sha512-Y+60/zizpJ3HRH8DCss+q95yr6145JXZo46OTpFvDZWLfRCE4qChOyk1b26nMaNpfHHgxagk9dXT5OP0Tfe+dQ==}
     dev: true
 
   /leven@3.1.0:
