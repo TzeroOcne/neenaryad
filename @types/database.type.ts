@@ -9,6 +9,14 @@ export interface ReadOptions {
   limit?: number;
 }
 
+export interface UpdateDataType {
+  updated_at: Date;
+}
+
+export interface DataType extends UpdateDataType {
+  created_at: Date;
+}
+
 export interface CollectionObject {
   key?: IDBValidKey;
 }

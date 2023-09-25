@@ -4,17 +4,32 @@
   import type { CollectionName, Bookmark as EntryType, Validation } from '@types';
   import { Alert, Button, Helper, Input, Label, Modal, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
   import { Icon } from 'flowbite-svelte-icons';
+  import debounce from 'lodash.debounce';
   const collectionName:CollectionName = 'bookmark';
   let insertModal = false;
   let editModal = false;
   let errorMessage = '';
   let entryList:EntryType[] = [];
+  let searchText = '';
+  let searchRegex = new RegExp(searchText);
+  let filteredList = [...entryList];
+
+  const searchDebounce = debounce(() => {
+    searchRegex = new RegExp(searchText, 'i');
+  }, 400);
 
   const refreshList = async () => {
     if ($dbStore) {
       entryList = await dbFind(collectionName);
     }
   };
+
+  $: {
+    searchDebounce();
+    searchText;
+  };
+
+  $: filteredList = entryList.filter(({ title }) => searchRegex.test(title));
 
   const targetEntry:EntryType = {
     title: '',
@@ -142,7 +157,7 @@
     }
     return valid;
   };
-  
+
   const resetEntry = () => {
     targetEntry.title = '';
     targetEntry.titleLink = '';
@@ -165,7 +180,7 @@
     validation.groupLink.message = '';
     validation.groupLink.init = false;
   };
-  
+
   const insertEntry = async (e:SubmitEvent|MouseEvent) => {
     e.preventDefault();
     if (!isValid()) {
@@ -185,7 +200,7 @@
       }
     }
   };
-  
+
   const updateEntry = async (e:SubmitEvent|MouseEvent) => {
     e.preventDefault();
     if (!isValid()) {
@@ -206,12 +221,12 @@
       }
     }
   };
-  
+
   const onCloseForm = () => {
     errorMessage = '';
     resetValidation();
   };
-  
+
   // eslint-disable-next-line no-undef
   const onEdit = (key?:IDBValidKey) => async () => {
     if (key) {
@@ -226,7 +241,7 @@
       editModal = true;
     }
   };
-  
+
   const onCloseEdit = () => {
     onCloseForm();
     resetEntry();
@@ -240,6 +255,10 @@
 >
   <Icon name="plus-solid"/>
 </Button>
+
+<input type="text" placeholder="search title" class="input input-bordered w-full max-w-xs bg-nnrygray-700"
+  bind:value={searchText}
+>
 
 <Table id="entry-table-root" striped={true} class="mt-8">
   <colgroup>
@@ -267,7 +286,7 @@
     <TableBodyCell />
   </TableHead>
   <TableBody>
-    {#each entryList as {
+    {#each filteredList as {
       key,
       title, titleLink,
       chapter, chapterLink,

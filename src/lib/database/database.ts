@@ -1,5 +1,5 @@
 import { dbStore } from '$lib/store/layout';
-import type { CollectionIndex, CollectionName, CollectionType } from '@types';
+import type { CollectionIndex, CollectionName, CollectionType, DataType, UpdateDataType } from '@types';
 
 let db: IDBDatabase;
 
@@ -47,9 +47,12 @@ export const initializeDB = () => {
 const rejectRequest = (reject:(reason:unknown) => void) =>
   (ev:Event) => reject((ev.target as IDBRequest).error);
 
-export const dbWrite = <T extends string>(collection:CollectionName, data:Partial<Record<T,unknown>>) =>
+export const dbWrite = <T extends string>(collection:CollectionName, data:Partial<Record<T,unknown> & DataType>) =>
   new Promise<Event>((resolve, reject) => {
     if (!db) return reject('db is not instantiated');
+    const currentTiemstamp = new Date();
+    data.created_at = currentTiemstamp;
+    data.updated_at = currentTiemstamp;
     const transaction = db.transaction(collection, 'readwrite');
     const objectStore = transaction.objectStore(collection);
     const request = objectStore.add(data);
@@ -109,9 +112,10 @@ export const dbFindByKey = <T extends CollectionName>(
 });
 
 export const dbFindByKeyAndUpdate = <T extends CollectionName>(
-  collection:T, key:IDBValidKey, updateData:CollectionType<T>,
+  collection:T, key:IDBValidKey, updateData:CollectionType<T> & Partial<UpdateDataType>,
 ) => new Promise<Event>((resolve, reject) => {
   if (!db) return reject('db is not instantiated');
+  updateData.updated_at = new Date();
   const transaction = db.transaction(collection, 'readwrite');
   const objectStore = transaction.objectStore(collection);
   const request = objectStore.put(updateData, key);
